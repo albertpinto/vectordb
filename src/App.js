@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Search from "./components/Search";
+import Loader from "./components/Loader";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Search />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/loader" element={<Loader />} />
           <Route path="/notfound" element={<NotFound />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />

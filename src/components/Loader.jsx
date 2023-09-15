@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Spinner from "./shared/Spinner";
-import SearchOutput from "./SearchOutput";
+import LoadOutput from "./LoadOutput";
 import axios from "axios";
 
-const Search = () => {
+const Loader = () => {
   // State variables
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState(process.env.REACT_APP_ARXIV_URL);
   const [submitted, setSubmitted] = useState(false);
   const [output, setOutput] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -40,16 +40,13 @@ const Search = () => {
   const fetchData = async () => {
     try {
       // Make a GET request to your REST endpoint
-      const url = `${process.env.REACT_APP_URL}/${process.env.REACT_APP_SEARCH_END_POINT}?query=${inputText}`;
+      const url = `${inputText}/${process.env.REACT_APP_LOAD_END_POINT}`;
       console.log(url);
       const response = await axios.get(url);
       const data = await response.data;
 
       // Assuming the response contains the data you want to set in the state
       setOutput(response.data);
-      setSearchResults(data[0]);
-      setSentences(data[1]);
-      setOutput(data[0]);
 
       // Set loading state to false
       setIsLoading(false);
@@ -68,16 +65,16 @@ const Search = () => {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="query"
+            htmlFor="url"
           >
-            Search
+            Arxiv URL
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="query"
-            name="query"
+            id="url"
+            name="url"
             type="text"
-            placeholder="Your search string"
+            placeholder="Enter Arxiv URL"
             value={inputText}
             onChange={handleInputChange}
           />
@@ -88,17 +85,16 @@ const Search = () => {
             type="submit"
             onClick={handleSubmit}
           >
-            Submit
+            Load Data
           </button>
         </div>
       </div>
       <div className="mt-4">
-        {/* <SearchOutput searchResults={searchResults} sentences={sentences} /> */}
         {submitted && output === "" ? (
           <Spinner />
         ) : (
           submitted && (
-            <SearchOutput searchResults={searchResults} sentences={sentences} />
+            <LoadOutput output={output} />
           )
         )}
       </div>
@@ -106,4 +102,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Loader;

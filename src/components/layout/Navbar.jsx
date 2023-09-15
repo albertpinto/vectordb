@@ -51,6 +51,12 @@ function Navbar({ title }) {
                 Search
               </Link>
               <Link
+                to="/Loader"
+                className="btn btn-ghost btn-sm rounded-btn mr-4"
+              >
+                Loader
+              </Link>
+              <Link
                 to="/about"
                 className="btn btn-ghost btn-sm rounded-btn mr-4"
               >

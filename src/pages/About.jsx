@@ -1,7 +1,7 @@
 function About() {
   return (
     <>
-      <h1 className='text-6xl mb-4'>AI Chat</h1>
+      <h1 className='text-6xl mb-4'>AI Powered Search</h1>
       <p className='mb-4 text-2xl font-light'>
       AI-Ignite Nexus
       </p>
