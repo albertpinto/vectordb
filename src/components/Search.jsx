@@ -7,10 +7,10 @@ const Search = () => {
   // State variables
   const [inputText, setInputText] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [output, setOutput] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
   const [searchResults, setSearchResults] = useState([]);
   const [sentences, setSentences] = useState([]);
+  const [output, setOutput] = useState("");
 
   // Handle input change
   const handleInputChange = (e) => {
@@ -29,36 +29,31 @@ const Search = () => {
     setOutput("");
   };
 
-  // Fetch data on form submission or input change
+  // Fetch data on form submission
   useEffect(() => {
     if (submitted) {
       fetchData();
     }
-  }, [submitted, inputText, output, isLoading]);
+  }, [submitted, inputText]);
 
   // Fetch data asynchronously
   const fetchData = async () => {
+    setIsLoading(true); // Set loading state to true before the request
+
     try {
-      // Make a GET request to your REST endpoint
       const url = `${process.env.REACT_APP_URL}/${process.env.REACT_APP_SEARCH_END_POINT}?query=${inputText}`;
       console.log(url);
       const response = await axios.get(url);
-      const data = await response.data;
+      const data = response.data;
 
-      // Assuming the response contains the data you want to set in the state
-      setOutput(response.data);
       setSearchResults(data[0]);
       setSentences(data[1]);
       setOutput(data[0]);
 
-      // Set loading state to false
-      setIsLoading(false);
+      setIsLoading(false); // Set loading state to false after a successful request
     } catch (error) {
-      // Handle errors here, e.g., show an error message
       console.error("Error fetching data:", error);
-
-      // Set loading state to false on error
-      setIsLoading(false);
+      setIsLoading(false); // Set loading state to false on error
     }
   };
 
@@ -93,8 +88,7 @@ const Search = () => {
         </div>
       </div>
       <div className="mt-4">
-        {/* <SearchOutput searchResults={searchResults} sentences={sentences} /> */}
-        {submitted && output === "" ? (
+        {isLoading ? (
           <Spinner />
         ) : (
           submitted && (

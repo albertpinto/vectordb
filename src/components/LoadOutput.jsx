@@ -8,10 +8,10 @@ function LoadOutput({output}) {
     
       // If loader out is not an empty string, render the component with the output
       return ( 
-        <div className="p-2 w-96 h-auto border-8 border-cyan-500 rounded-2xl shadow-2xl">
+        <div className="p-2 w-auto h-96 border-8 border-cyan-500 rounded-2xl shadow-2xl">
           <div className="text-lg font-semibold text-center">Output</div>
           <div className="text-lg">{output}</div>
-          <div className=""break-after-page></div>
+          <div className="break-after-page"></div>
         </div>
       );
 }
