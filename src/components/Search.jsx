@@ -43,7 +43,13 @@ const Search = () => {
     try {
       const url = `${process.env.REACT_APP_URL}/${process.env.REACT_APP_SEARCH_END_POINT}?query=${inputText}`;
       console.log(url);
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*", // Replace '*' with the actual allowed origin(s) on your server
+        },
+      });
+      //const response = await axios.get(url);
       const data = response.data;
 
       setSearchResults(data[0]);
